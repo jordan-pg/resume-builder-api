@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "prepare": "nitropack prepare",
+    "dev": "nitropack dev",
+    "build": "nitropack build",
+    "preview": "node .output/server/index.mjs"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8",
+    "nitropack": "latest",
+    "puppeteer": "^21.7.0"
+  }
+}

@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>{{name}}'s Resume</title>
+    <style>
+      body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px; color: #333; line-height: 1.6; background-color: #fff;
+      padding: 20px; /* Add padding around the content */ } /* Header */
+      .resume-header { text-align: left; border-bottom: 2px solid #007bff;
+      padding-bottom: 10px; margin-bottom: 20px; } .resume-header h1 {
+      font-size: 24px; color: #333; } .resume-header p { font-size: 16px; color:
+      #666; } /* Contact Information */ .contact-info { text-align: left;
+      font-size: 14px; color: #666; margin-bottom: 20px; } /* Section Headings
+      */ h2 { font-size: 18px; color: #007bff; margin-bottom: 10px;
+      border-bottom: 1px solid #eee; } /* Experience and Education Sections */
+      .job, .school { margin-bottom: 15px; } .job h3, .school h3 { font-size:
+      16px; color: #333; margin-top: 0; } .date { font-size: 14px; color: #666;
+      font-style: italic; } ul { list-style-type: disc; /* Change to 'disc' to
+      show bullet points */ padding-left: 20px; /* Add padding to align bullets
+      properly */ } ul li { margin-bottom: 5px; } /* Skills Section */ .skills
+      ul { display: flex; flex-wrap: wrap; padding: 0; } .skills li {
+      margin-right: 15px; background-color: #f4f4f4; padding: 5px 10px;
+      border-radius: 5px; font-size: 14px; }
+
+    </style>
+  </head>
+  <body>
+    <div class="resume">
+      <header class="resume-header">
+        <h1>{{name}}</h1>
+        <p>{{title}}</p>
+      </header>
+
+      <div class="contact-info">
+        <p>{{#if email}}Email: {{email}}{{/if}}
+          {{#if phone}}| Phone: {{phone}}{{/if}}
+          {{#if linkedIn}}| LinkedIn: {{linkedIn}}{{/if}}
+          {{#if GitHub}}| GitHub: {{github}}{{/if}}</p>
+      </div>
+
+      {{#if summary}}
+        <section class="summary">
+          <h2>Summary</h2>
+          <p>{{summary}}</p>
+        </section>
+      {{/if}}
+
+      {{#if experiences}}
+        <section class="experience">
+          <h2>Experience</h2>
+          {{#each experiences}}
+            <div class="job">
+              <h3>{{title}} - {{company}}</h3>
+              <p class="date">{{startDate}} - {{endDate}}</p>
+              <ul>
+                {{#each description}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if education}}
+        <section class="education">
+          <h2>Education</h2>
+          {{#each education}}
+            <div class="school">
+              <h3>{{degree}}</h3>
+              <p class="date">{{school}} - {{graduationYear}}</p>
+            </div>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if skills}}
+        <section class="skills">
+          <h2>Skills</h2>
+          <ul>
+            {{#each skills}}
+              {{this}}
+            {{/each}}
+          </ul>
+        </section>
+      {{/if}}
+    </div>
+  </body>
+</html>

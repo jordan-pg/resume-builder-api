@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .resume {
+            width: 800px;
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4A90E2;
+            color: #fff;
+            padding: 16px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .header h2 {
+            margin-top: 5px;
+            font-size: 20px;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #4A90E2;
+        }
+        .contact-info, .education, .experience, .skills, .summary {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .contact-info li, .education li, .experience li, .skills li, .summary p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .icon {
+            color: #4A90E2;
+            margin-right: 10px;
+        }
+        .skills ul {
+        padding: 0;
+        text-align: left;
+        margin-top: 0; /* Remove top margin */
+        margin-bottom: 15px; /* Existing bottom margin */
+      }
+
+      .skills li {
+        display: inline-block;
+        margin: 5px 10px; /* Existing margin */
+        background-color: #f2f2f2;
+        padding: 5px 15px;
+        border-radius: 15px;
+        font-size: 16px;
+      }
+    </style>
+</head>
+<body>
+    <div class="resume">
+        <div class="header">
+            <h1>{{name}}</h1>
+            <h2>{{title}}</h2>
+        </div>
+        
+        <div class="section contact-info">
+            <h3 class="section-title"><i class="fas fa-info-circle icon"></i>Contact Information</h3>
+            <ul>
+                <li><i class="fas fa-envelope icon"></i>Email: {{email}}</li>
+                <li><i class="fas fa-phone icon"></i>Phone: {{phone}}</li>
+                <li><i class="fab fa-linkedin icon"></i>LinkedIn: {{linkedIn}}</li>
+                <li><i class="fas fa-link icon"></i>Website: {{website}}</li>
+            </ul>
+        </div>
+
+        {{#if summary}}
+        <div class="section summary">
+            <h3 class="section-title"><i class="fas fa-user-circle icon"></i>Summary</h3>
+            <p>{{summary}}</p>
+        </div>
+        {{/if}}
+
+        {{#if education}}
+        <div class="section education">
+            <h3 class="section-title"><i class="fas fa-university icon"></i>Education</h3>
+            <ul>
+                {{#each education}}
+                <li>{{degree}} at {{school}}, {{graduationYear}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if experiences}}
+        <div class="section experience">
+            <h3 class="section-title"><i class="fas fa-briefcase icon"></i>Experience</h3>
+            <ul>
+                {{#each experiences}}
+                <li>
+                    <b class="title">{{title}} at {{company}}</b>
+                    <div class="term">{{startDate}} - {{endDate}}</div>
+                    <ul>
+                        {{#each description}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if skills}}
+        <div class="section skills">
+            <h3 class="section-title"><i class="fas fa-star icon"></i>Skills</h3>
+            <ul>
+                {{#each skills}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+    </div>
+</body>
+</html>
