@@ -3220,7 +3220,7 @@ const _inlineRuntimeConfig = {
           "access-control-max-age": "0"
         }
       },
-      "/templates/**": {
+      "/templates/*": {
         "headers": {
           "cache-control": "s-maxage=0"
         }

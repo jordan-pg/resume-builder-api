@@ -15,7 +15,7 @@
       "headers": {
         "cache-control": "s-maxage=0"
       },
-      "src": "/templates/.*"
+      "src": "/templates/*"
     },
     {
       "handle": "filesystem"
