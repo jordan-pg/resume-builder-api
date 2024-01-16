@@ -22,7 +22,7 @@ async function generatePDF(htmlContent) {
 }
 
 async function populateTemplate(data, type) {
-  const templateSource = await promises.readFile(process.cwd() + `/templates/${type}.hbs`, "utf8");
+  const templateSource = await promises.readFile(`./templates/${type}.hbs`, "utf8");
   const template = Handlebars.compile(templateSource);
   return template(data);
 }
