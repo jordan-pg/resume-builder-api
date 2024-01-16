@@ -3229,7 +3229,7 @@ const _inlineRuntimeConfig = {
   },
   "nitro": {
     "routeRules": {
-      "/*": {
+      "/api/*": {
         "cors": true,
         "headers": {
           "access-control-allow-origin": "*",
@@ -5097,43 +5097,7 @@ function renderHTMLError(error) {
 `;
 }
 
-const assets = {
-  "/classic-alt.hbs": {
-    "type": "text/x-handlebars-template; charset=utf-8",
-    "etag": "\"1240-QA0USGt4xDqcU5EPd26DSaeWST8\"",
-    "mtime": "2024-01-16T22:08:07.928Z",
-    "size": 4672,
-    "path": "../public/classic-alt.hbs"
-  },
-  "/classic.hbs": {
-    "type": "text/x-handlebars-template; charset=utf-8",
-    "etag": "\"bc6-RLiZ4OlFYnZGglvDJMli3Q0raXs\"",
-    "mtime": "2024-01-16T22:08:07.929Z",
-    "size": 3014,
-    "path": "../public/classic.hbs"
-  },
-  "/modern.hbs": {
-    "type": "text/x-handlebars-template; charset=utf-8",
-    "etag": "\"104f-oR4PZRQ+HWNTdICL2VtrCw9G7v8\"",
-    "mtime": "2024-01-16T22:08:07.929Z",
-    "size": 4175,
-    "path": "../public/modern.hbs"
-  },
-  "/sidebar.hbs": {
-    "type": "text/x-handlebars-template; charset=utf-8",
-    "etag": "\"1111-4qdXy8pkndPxbD/+tlzNDUVDIQE\"",
-    "mtime": "2024-01-16T22:08:07.928Z",
-    "size": 4369,
-    "path": "../public/sidebar.hbs"
-  },
-  "/student.hbs": {
-    "type": "text/x-handlebars-template; charset=utf-8",
-    "etag": "\"fea-Hiwag/Uo1m8SDmd235YczR1XCA0\"",
-    "mtime": "2024-01-16T22:08:07.929Z",
-    "size": 4074,
-    "path": "../public/student.hbs"
-  }
-};
+const assets = {};
 
 const _DRIVE_LETTER_START_RE = /^[A-Za-z]:\//;
 function normalizeWindowsPath(input = "") {
@@ -5328,11 +5292,11 @@ const _f4b49z = eventHandler((event) => {
   return readAsset(id);
 });
 
-const _lazy_60zQNk = () => import('../resume-builder.mjs');
+const _lazy_xe9zWU = () => import('../resume-builder.mjs');
 
 const handlers = [
   { route: '', handler: _f4b49z, lazy: false, middleware: true, method: undefined },
-  { route: '/resume-builder', handler: _lazy_60zQNk, lazy: true, middleware: false, method: undefined }
+  { route: '/api/resume-builder', handler: _lazy_xe9zWU, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {

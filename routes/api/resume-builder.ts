@@ -1,5 +1,5 @@
-import { generatePDF } from "../lib/pdfGenerator";
-import { populateTemplate } from "../lib/templateEngine";
+import { generatePDF } from "../../lib/pdfGenerator";
+import { populateTemplate } from "../../lib/templateEngine";
 
 export default defineEventHandler(async (event) => {
   try {

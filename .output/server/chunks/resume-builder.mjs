@@ -2,9 +2,9 @@ import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readB
 import puppeteer from 'puppeteer';
 import * as fs from 'fs';
 import Handlebars from 'handlebars';
-import path from 'path';
 import 'node:http';
 import 'node:https';
+import 'path';
 import 'node:fs';
 import 'node:url';
 
@@ -22,9 +22,8 @@ async function generatePDF(htmlContent) {
 }
 
 async function populateTemplate(data, type) {
-  const pathResolve = await path.resolve(`/.vercel/output/static/${type}.hbs`);
-  const templateSource = await fs.readFileSync(pathResolve, "utf8");
-  const template = await Handlebars.compile(templateSource);
+  const templateSource = fs.readFileSync(`templates/${type}.hbs`, "utf8");
+  const template = Handlebars.compile(templateSource);
   return template(data);
 }
 
