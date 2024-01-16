@@ -6,5 +6,6 @@ export default defineNitroConfig({
           cors: true,
           headers: { "access-control-allow-methods": "POST" },
         },
+        '/templates/**': { headers: { 'cache-control': 's-maxage=0' } },
       },
 });
