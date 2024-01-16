@@ -1,10 +1,10 @@
 import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/node-server.mjs';
 import puppeteer from 'puppeteer';
-import * as fs from 'fs';
+import { promises } from 'fs';
 import Handlebars from 'handlebars';
-import path from 'path';
 import 'node:http';
 import 'node:https';
+import 'path';
 import 'node:fs';
 import 'node:url';
 
@@ -21,9 +21,8 @@ async function generatePDF(htmlContent) {
   return pdfBuffer;
 }
 
-function populateTemplate(data, type) {
-  const templateDirectory = path.join(process.cwd(), "templates/", `${type}.hbs`);
-  const templateSource = fs.readFileSync(templateDirectory, "utf8");
+async function populateTemplate(data, type) {
+  const templateSource = await promises.readFile(process.cwd() + `/templates/${type}.hbs`, "utf8");
   const template = Handlebars.compile(templateSource);
   return template(data);
 }
@@ -37,7 +36,7 @@ const resumeBuilder = defineEventHandler(async (event) => {
     assertMethod(event, ["POST"]);
     const body = await readBody(event);
     const parsedBody = JSON.parse(body);
-    const htmlContent = populateTemplate(parsedBody.data, parsedBody.type);
+    const htmlContent = await populateTemplate(parsedBody.data, parsedBody.type);
     const pdfBuffer = await generatePDF(htmlContent);
     return new Response(pdfBuffer, {
       headers: {

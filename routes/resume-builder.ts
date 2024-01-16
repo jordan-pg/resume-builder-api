@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 	assertMethod(event, ["POST"]);
 	const body = await readBody(event);
 	const parsedBody = JSON.parse(body);
-	const htmlContent = populateTemplate(parsedBody.data, parsedBody.type);
+	const htmlContent = await populateTemplate(parsedBody.data, parsedBody.type);
 	const pdfBuffer = await generatePDF(htmlContent);
 
 	return new Response(pdfBuffer, {
