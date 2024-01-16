@@ -22,10 +22,12 @@ export default defineEventHandler(async (event) => {
 	  },
 	});
   } catch (error) {
+	const stackTrace = new Error().stack;
 	console.error(error);
 	return createError({
 	  statusCode: 500,
 	  statusMessage: error,
+	  stack: stackTrace
 	});
   }
 });
