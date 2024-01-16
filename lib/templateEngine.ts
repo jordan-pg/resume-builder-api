@@ -1,9 +1,12 @@
 import { Resume } from '../types/resumeTypes';
 import { promises as fs } from 'fs';
 import Handlebars from 'handlebars';
+import * as path from 'path';
 
 export async function populateTemplate(data: Resume, type: string): Promise<string> {
-    const templateSource = await fs.readFile(process.cwd() + `/public/templates/${type}.hbs`, 'utf8');
+    const newPath = path.resolve(`templates/${type}.hbs`);
+
+    const templateSource = await fs.readFile(newPath, 'utf8');
     const template = Handlebars.compile(templateSource);
     return template(data);
 }
