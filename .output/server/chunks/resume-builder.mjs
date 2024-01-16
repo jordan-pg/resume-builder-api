@@ -22,7 +22,7 @@ async function generatePDF(htmlContent) {
 }
 
 function populateTemplate(data, type) {
-  const templateDirectory = path.join(process.cwd(), "public", `${type}.hbs`);
+  const templateDirectory = path.join(process.cwd(), "templates/", `${type}.hbs`);
   const templateSource = fs.readFileSync(templateDirectory, "utf8");
   const template = Handlebars.compile(templateSource);
   return template(data);
