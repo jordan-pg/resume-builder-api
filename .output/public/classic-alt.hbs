@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{name}}'s Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.15;
+            margin: 0;
+            padding: 0;
+        }
+        .resume {
+            width: 800px;
+            margin: 24px auto;
+            background: #fff;
+            padding: 24px;
+        }
+        .header {
+            color: #fff;
+            background-color: #4A90E2;
+            padding: 16px 24px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .header h2 {
+            margin: 0;
+            font-weight: normal;
+            font-size: 20px;
+        }
+        .section {
+            margin-top: 16px;
+        }
+        .section-title {
+            border-bottom: 2px solid #4A90E2;
+            color: #4A90E2;
+            font-size: 24px;
+            margin: 8px 0;
+            padding-bottom: 4px;
+        }
+        .contact-info {
+            background-color: #f2f2f2;
+            padding: 16px 24px;
+            font-size: 16px;
+            line-height: 1.5;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .contact-info p {
+            margin: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info p:before {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            margin-right: 8px;
+            content: attr(data-label);
+        }
+        .detail-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+        .detail-list li {
+            margin-bottom: 8px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .detail-list .title {
+            font-weight: bold;
+        }
+        .detail-list .term {
+            font-style: italic;
+            color: #666;
+        }
+        .skills-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+            overflow: hidden;
+        }
+        .skills-list li {
+            float: left;
+            width: 50%;
+            margin-bottom: 8px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume">
+        <div class="header">
+            <h1>{{name}}</h1>
+            <h2>{{title}}</h2>
+        </div>
+        <div class="contact-info">
+                {{#if email}}<p><i class="fas fa-envelope"></i> {{email}}</p>{{/if}}
+                {{#if phone}}<p><i class="fas fa-phone"></i> {{phone}}</p>{{/if}}
+                {{#if linkedIn}}<p><i class="fab fa-linkedin"></i> {{linkedIn}}</p>{{/if}}
+                {{#if website}}<p><i class="fa fa-link"></i> {{website}}</p>{{/if}}
+        </div>
+        {{#if summary}}
+        <div class="section">
+            <h3 class="section-title">Summary</h3>
+            <p>{{summary}}</p>
+        </div>
+        {{/if}}
+        {{#if experiences}}
+        <div class="section">
+            <h3 class="section-title">Experience</h3>
+            <ul class="detail-list">
+                {{#each experiences}}
+                <li>
+                    <div class="title">{{title}} - {{company}}</div>
+                    <div class="term">{{startDate}} - {{endDate}}</div>
+                    <ul>
+                        {{#each description}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+        {{#if education}}
+        <div class="section">
+            <h3 class="section-title">Education</h3>
+            <ul class="detail-list">
+                {{#each education}}
+                <li>
+                    <div class="title">{{degree}}</div>
+                    <div class="term">{{school}} - {{graduationYear}}</div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+        {{#if skills}}
+        <div class="section">
+            <h3 class="section-title">Skills</h3>
+            <ul class="skills-list">
+                {{#each skills}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+    </div>
+</body>
+</html>

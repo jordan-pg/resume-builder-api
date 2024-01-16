@@ -1,12 +1,11 @@
 import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/node-server.mjs';
 import puppeteer from 'puppeteer';
+import * as fs from 'fs';
 import Handlebars from 'handlebars';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
 import 'node:http';
 import 'node:https';
-import 'fs';
 import 'path';
+import 'node:fs';
 import 'node:url';
 
 async function generatePDF(htmlContent) {
@@ -23,9 +22,8 @@ async function generatePDF(htmlContent) {
 }
 
 async function populateTemplate(data, type) {
-  const filePath = path.join(process.cwd(), "templates", `${type}.hbs`);
-  const templateSource = fs.promises.readFile(filePath, "utf8");
-  const template = Handlebars.compile(templateSource);
+  const templateSource = await fs.readFileSync(`public/${type}.hbs`, "utf8");
+  const template = await Handlebars.compile(templateSource);
   return template(data);
 }
 
