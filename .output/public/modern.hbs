@@ -1,0 +1,174 @@
+<html>
+  <head>
+    <title>{{name}}'s Resume</title>
+    <style>
+      /* Basic Layout */
+      body {
+        font-family: 'Georgia', serif;
+        font-size: 16px;
+        color: #3a3a3a;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Resume container with subtle shadow */
+      .resume {
+        max-width: 800px;
+        margin: auto;
+        background: #ffffff;
+        padding: 15px;
+      }
+
+      /* Darker header with reduced padding */
+      .resume-header {
+        background-color: #333366; /* Darker shade */
+        color: #ffffff;
+        text-align: center;
+        padding: 15px 0;
+      }
+
+      .resume-header h1 {
+        font-size: 28px;
+        margin: 0;
+      }
+
+      .summary-padding {
+        padding-left: 15px;
+      }
+
+      .resume-header p {
+        font-size: 17px;
+        margin: 5px 0;
+      }
+
+      /* Contact Information with reduced margin */
+      .contact-info {
+        text-align: center;
+        font-size: 16px;
+        color: #333366; /* Darker color */
+        margin-bottom: 15px;
+      }
+
+      /* Stylish section headings with tighter layout */
+      h2 {
+        font-size: 20px;
+        background-color: #333366; /* Consistent with the header */
+        color: white;
+        margin: 10px 0 10px; /* Reduced margin */
+        padding: 5px 15px; /* Adjusted padding */
+      }
+
+      /* Experience and Education Sections */
+      .job, .school {
+        border-left: 4px solid #333366; /* Consistent border color */
+        padding-left: 10px; /* Reduced padding */
+        margin-bottom: 15px; /* Reduced margin */
+      }
+
+      .job h3, .school h3 {
+        font-size: 17px;
+        margin-top: 0;
+      }
+
+      .date {
+        font-size: 15px;
+        color: #777;
+        font-style: italic;
+      }
+
+      ul {
+        list-style-type: square;
+        padding-left: 20px; /* Reduced padding */
+      }
+
+      ul li {
+        margin-bottom: 8px; /* Reduced margin */
+      }
+
+      /* Skills section with adjusted margins */
+      .skills h2 {
+        margin-bottom: 5px; /* Reduced bottom margin for the header */
+      }
+
+      .skills ul {
+        padding: 0;
+        text-align: left;
+        margin-top: 0; /* Remove top margin */
+        margin-bottom: 15px; /* Existing bottom margin */
+      }
+
+      .skills li {
+        display: inline-block;
+        margin: 5px 10px; /* Existing margin */
+        background-color: #f2f2f2;
+        padding: 5px 15px;
+        border-radius: 15px;
+        font-size: 16px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="resume">
+      <header class="resume-header">
+        <h1>{{name}}</h1>
+        <p>{{title}}</p>
+      </header>
+
+      <div class="contact-info">
+        <p>{{#if email}}Email: {{email}}{{/if}}
+          {{#if phone}}| Phone: {{phone}}{{/if}}
+          {{#if linkedIn}}| LinkedIn: {{linkedIn}}{{/if}}
+          {{#if website}}| Website: {{website}}{{/if}}</p>
+      </div>
+
+      {{#if summary}}
+        <section class="summary">
+          <h2>Summary</h2>
+          <p class="summary-padding">{{summary}}</p>
+        </section>
+      {{/if}}
+
+      {{#if experiences}}
+        <section class="experience">
+          <h2>Experience</h2>
+          {{#each experiences}}
+            <div class="job">
+              <h3>{{title}} - {{company}}</h3>
+              <p class="date">{{startDate}} - {{endDate}}</p>
+              <ul>
+                {{#each description}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if education}}
+        <section class="education">
+          <h2>Education</h2>
+          {{#each education}}
+            <div class="school">
+              <h3>{{degree}}</h3>
+              <p class="date">{{school}} - {{graduationYear}}</p>
+            </div>
+          {{/each}}
+        </section>
+      {{/if}}
+
+      {{#if skills}}
+        <section class="skills">
+          <h2>Skills</h2>
+          <ul>
+            {{#each skills}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </section>
+      {{/if}}
+    </div>
+  </body>
+</html>

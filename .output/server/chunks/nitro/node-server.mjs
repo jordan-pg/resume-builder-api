@@ -5097,7 +5097,43 @@ function renderHTMLError(error) {
 `;
 }
 
-const assets = {};
+const assets = {
+  "/classic-alt.hbs": {
+    "type": "text/x-handlebars-template; charset=utf-8",
+    "etag": "\"1240-QA0USGt4xDqcU5EPd26DSaeWST8\"",
+    "mtime": "2024-01-16T08:26:02.527Z",
+    "size": 4672,
+    "path": "../public/classic-alt.hbs"
+  },
+  "/classic.hbs": {
+    "type": "text/x-handlebars-template; charset=utf-8",
+    "etag": "\"bc6-RLiZ4OlFYnZGglvDJMli3Q0raXs\"",
+    "mtime": "2024-01-16T08:26:02.527Z",
+    "size": 3014,
+    "path": "../public/classic.hbs"
+  },
+  "/modern.hbs": {
+    "type": "text/x-handlebars-template; charset=utf-8",
+    "etag": "\"104f-oR4PZRQ+HWNTdICL2VtrCw9G7v8\"",
+    "mtime": "2024-01-16T08:26:02.527Z",
+    "size": 4175,
+    "path": "../public/modern.hbs"
+  },
+  "/sidebar.hbs": {
+    "type": "text/x-handlebars-template; charset=utf-8",
+    "etag": "\"1111-4qdXy8pkndPxbD/+tlzNDUVDIQE\"",
+    "mtime": "2024-01-16T08:26:02.527Z",
+    "size": 4369,
+    "path": "../public/sidebar.hbs"
+  },
+  "/student.hbs": {
+    "type": "text/x-handlebars-template; charset=utf-8",
+    "etag": "\"fea-Hiwag/Uo1m8SDmd235YczR1XCA0\"",
+    "mtime": "2024-01-16T08:26:02.527Z",
+    "size": 4074,
+    "path": "../public/student.hbs"
+  }
+};
 
 const _DRIVE_LETTER_START_RE = /^[A-Za-z]:\//;
 function normalizeWindowsPath(input = "") {
