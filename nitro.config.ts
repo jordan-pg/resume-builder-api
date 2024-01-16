@@ -1,2 +1,9 @@
 //https://nitro.unjs.io/config
-export default defineNitroConfig({});
+export default defineNitroConfig({
+    routeRules: {
+        "/*": {
+          cors: true,
+          headers: { "access-control-allow-methods": "POST" },
+        },
+      },
+});
