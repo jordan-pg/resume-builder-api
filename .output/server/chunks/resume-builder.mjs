@@ -2,9 +2,9 @@ import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readB
 import puppeteer from 'puppeteer';
 import * as fs from 'fs';
 import Handlebars from 'handlebars';
+import path from 'path';
 import 'node:http';
 import 'node:https';
-import 'path';
 import 'node:fs';
 import 'node:url';
 
@@ -22,7 +22,8 @@ async function generatePDF(htmlContent) {
 }
 
 function populateTemplate(data, type) {
-  const templateSource = fs.readFileSync(`templates/${type}.hbs`, "utf8");
+  const templateDirectory = path.join(process.cwd(), `templates/${type}.hbs`);
+  const templateSource = fs.readFileSync(templateDirectory, "utf8");
   const template = Handlebars.compile(templateSource);
   return template(data);
 }
