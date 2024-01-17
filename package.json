@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "handlebars": "^4.7.8",
-    "nitropack": "latest",
-    "puppeteer": "^21.7.0"
+    "nitropack": "latest"
   }
 }
