@@ -14,4 +14,9 @@ export default defineNitroConfig({
       dir: "./templates",
     },
   ],
+  rollupConfig: {
+    // Customize Rollup configuration
+    external: ['playwright', 'puppeteer'],
+    // Additional Rollup configuration options...
+  }
 });
