@@ -1,5 +1,5 @@
 import { u as useStorage, d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
-import puppeteer from 'puppeteer';
+import chromium from 'chrome-aws-lambda';
 import Handlebars from 'handlebars';
 import 'node:http';
 import 'node:https';
@@ -7,16 +7,27 @@ import 'fs';
 import 'path';
 
 async function generatePDF(htmlContent) {
-  const browser = await puppeteer.launch({
-    defaultViewport: null,
-    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    headless: "new"
-  });
-  const page = await browser.newPage();
-  await page.setContent(htmlContent, { waitUntil: "networkidle0" });
-  const pdfBuffer = await page.pdf({ format: "a4", printBackground: true });
-  await browser.close();
-  return pdfBuffer;
+  let browser = null;
+  try {
+    browser = await chromium.puppeteer.launch({
+      args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true
+    });
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+    const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
+    return pdfBuffer;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  } finally {
+    if (browser !== null) {
+      await browser.close();
+    }
+  }
 }
 
 async function populateTemplate(data, type) {
