@@ -1,5 +1,5 @@
 import { u as useStorage, d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
-import chromium from 'chrome-aws-lambda';
+import { chromium } from 'playwright';
 import Handlebars from 'handlebars';
 import 'node:http';
 import 'node:https';
@@ -9,15 +9,10 @@ import 'path';
 async function generatePDF(htmlContent) {
   let browser = null;
   try {
-    browser = await chromium.puppeteer.launch({
-      args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
-      headless: true,
-      ignoreHTTPSErrors: true
-    });
-    const page = await browser.newPage();
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+    browser = await chromium.launch();
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.setContent(htmlContent, { waitUntil: "networkidle" });
     const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
     return pdfBuffer;
   } catch (error) {
