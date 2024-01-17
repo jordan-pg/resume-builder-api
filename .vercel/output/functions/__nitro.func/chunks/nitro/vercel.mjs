@@ -4423,7 +4423,26 @@ async function dispose(driver) {
 }
 
 const _assets = {
-
+  ["templates:classic-alt.hbs"]: {
+    import: () => import('../raw/classic-alt.mjs').then(r => r.default || r),
+    meta: {"type":"text/x-handlebars-template; charset=utf-8","etag":"\"1240-QA0USGt4xDqcU5EPd26DSaeWST8\"","mtime":"2024-01-16T21:09:22.169Z"}
+  },
+  ["templates:classic.hbs"]: {
+    import: () => import('../raw/classic.mjs').then(r => r.default || r),
+    meta: {"type":"text/x-handlebars-template; charset=utf-8","etag":"\"bc6-RLiZ4OlFYnZGglvDJMli3Q0raXs\"","mtime":"2024-01-16T21:09:22.169Z"}
+  },
+  ["templates:modern.hbs"]: {
+    import: () => import('../raw/modern.mjs').then(r => r.default || r),
+    meta: {"type":"text/x-handlebars-template; charset=utf-8","etag":"\"104f-oR4PZRQ+HWNTdICL2VtrCw9G7v8\"","mtime":"2024-01-16T21:09:22.169Z"}
+  },
+  ["templates:sidebar.hbs"]: {
+    import: () => import('../raw/sidebar.mjs').then(r => r.default || r),
+    meta: {"type":"text/x-handlebars-template; charset=utf-8","etag":"\"1111-4qdXy8pkndPxbD/+tlzNDUVDIQE\"","mtime":"2024-01-16T21:09:22.169Z"}
+  },
+  ["templates:student.hbs"]: {
+    import: () => import('../raw/student.mjs').then(r => r.default || r),
+    meta: {"type":"text/x-handlebars-template; charset=utf-8","etag":"\"fea-Hiwag/Uo1m8SDmd235YczR1XCA0\"","mtime":"2024-01-16T21:09:22.169Z"}
+  }
 };
 
 const normalizeKey = function normalizeKey(key) {
@@ -5210,5 +5229,5 @@ const vercel = (function(req, res) {
   return handler(req, res);
 });
 
-export { assertMethod as a, createError$1 as c, defineEventHandler as d, handleCors as h, readBody as r, vercel as v };
+export { assertMethod as a, createError$1 as c, defineEventHandler as d, handleCors as h, readBody as r, useStorage as u, vercel as v };
 //# sourceMappingURL=vercel.mjs.map

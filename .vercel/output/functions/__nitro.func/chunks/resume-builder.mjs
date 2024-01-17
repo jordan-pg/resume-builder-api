@@ -1,40 +1,27 @@
-globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
-import chromium from 'chrome-aws-lambda';
-import * as fs from 'fs';
+import { u as useStorage, d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
+import puppeteer from 'puppeteer';
 import Handlebars from 'handlebars';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import 'node:http';
 import 'node:https';
+import 'fs';
+import 'path';
 
 async function generatePDF(htmlContent) {
-  let browser = null;
-  try {
-    browser = await chromium.puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless
-    });
-    const page = await browser.newPage();
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
-    const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
-    return pdfBuffer;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  } finally {
-    if (browser !== null) {
-      await browser.close();
-    }
-  }
+  const browser = await puppeteer.launch({
+    defaultViewport: null,
+    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    headless: "new"
+  });
+  const page = await browser.newPage();
+  await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+  const pdfBuffer = await page.pdf({ format: "a4", printBackground: true });
+  await browser.close();
+  return pdfBuffer;
 }
 
 async function populateTemplate(data, type) {
-  const __dirname = fileURLToPath(new URL(".", globalThis._importMeta_.url));
-  const templatePath = path.join(__dirname, "templates", `${type}.hbs`);
-  const templateSource = fs.readFileSync(templatePath, "utf8");
-  const template = Handlebars.compile(templateSource);
+  const templatePath = await useStorage().getItem(`templates/${type}.hbs`);
+  const template = Handlebars.compile(templatePath);
   return template(data);
 }
 

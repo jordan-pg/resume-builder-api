@@ -9,6 +9,7 @@
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
     "handlebars": "^4.7.8",
-    "nitropack": "latest"
+    "nitropack": "latest",
+    "puppeteer": "^21.7.0"
   }
 }
