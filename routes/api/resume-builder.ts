@@ -1,3 +1,4 @@
+import { generatePDF } from "../../lib/pdfGenerator";
 import { populateTemplate } from "../../lib/templateEngine";
 
 export default defineEventHandler(async (event) => {
@@ -12,10 +13,11 @@ export default defineEventHandler(async (event) => {
 	const body = await readBody(event);
 	const parsedBody = JSON.parse(body);
 	const htmlContent = await populateTemplate(parsedBody.data, parsedBody.type);
+	const pdfBuffer = await generatePDF(htmlContent);
 
-	return new Response(htmlContent, {
+	return new Response(pdfBuffer, {
 	  headers: {
-		"Content-Type": "application/html",
+		"Content-Type": "application/pdf",
 		"Content-Disposition": 'attachment; filename="resume.pdf"',
 	  },
 	});
