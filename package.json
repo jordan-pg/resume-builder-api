@@ -7,9 +7,8 @@
     "preview": "node .output/server/index.mjs"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^119.0.2",
     "handlebars": "^4.7.8",
     "nitropack": "latest",
-    "puppeteer-core": "^21.7.0"
+    "puppeteer": "^21.7.0"
   }
 }
