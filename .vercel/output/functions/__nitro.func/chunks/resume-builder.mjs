@@ -1,12 +1,12 @@
 import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
-import chromium from 'chrome-aws-lambda';
-import puppeteer from 'puppeteer-core';
 import * as fs from 'fs';
 import Handlebars from 'handlebars';
 import 'node:http';
 import 'node:https';
 import 'path';
 
+const chromium = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer-core");
 async function generatePDF(htmlContent) {
   let browser = null;
   try {
