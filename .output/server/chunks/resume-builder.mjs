@@ -1,5 +1,6 @@
 import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/node-server.mjs';
-import puppeteer from 'puppeteer';
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
 import * as fs from 'fs';
 import Handlebars from 'handlebars';
 import 'node:http';
@@ -9,16 +10,27 @@ import 'node:fs';
 import 'node:url';
 
 async function generatePDF(htmlContent) {
-  const browser = await puppeteer.launch({
-    defaultViewport: null,
-    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    headless: "new"
-  });
-  const page = await browser.newPage();
-  await page.setContent(htmlContent, { waitUntil: "networkidle0" });
-  const pdfBuffer = await page.pdf({ format: "a4", printBackground: true });
-  await browser.close();
-  return pdfBuffer;
+  let browser = null;
+  try {
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true
+    });
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+    const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
+    return pdfBuffer;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
 }
 
 async function populateTemplate(data, type) {
@@ -38,7 +50,6 @@ const resumeBuilder = defineEventHandler(async (event) => {
     const parsedBody = JSON.parse(body);
     const htmlContent = await populateTemplate(parsedBody.data, parsedBody.type);
     const pdfBuffer = await generatePDF(htmlContent);
-    console.log({ htmlContent });
     return new Response(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",
