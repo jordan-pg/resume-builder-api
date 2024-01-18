@@ -1,8 +1,7 @@
 import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
-import * as fs from 'fs';
-import Handlebars from 'handlebars';
 import 'node:http';
 import 'node:https';
+import 'fs';
 import 'path';
 
 const chromium = require("chrome-aws-lambda");
@@ -30,6 +29,8 @@ async function generatePDF(htmlContent) {
   }
 }
 
+const fs = require("fs");
+const Handlebars = require("handlebars");
 async function populateTemplate(data, type) {
   const templateSource = fs.readFileSync(process.cwd() + `/templates/${type}.hbs`, "utf8");
   const template = Handlebars.compile(templateSource);
