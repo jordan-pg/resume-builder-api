@@ -22,7 +22,7 @@ async function generatePDF(htmlContent) {
 }
 
 async function populateTemplate(data, type) {
-  const templateSource = fs.readFileSync(`templates/${type}.hbs`, "utf8");
+  const templateSource = fs.readFileSync(process.cwd() + `/templates/${type}.hbs`, "utf8");
   const template = Handlebars.compile(templateSource);
   return template(data);
 }
@@ -38,6 +38,7 @@ const resumeBuilder = defineEventHandler(async (event) => {
     const parsedBody = JSON.parse(body);
     const htmlContent = await populateTemplate(parsedBody.data, parsedBody.type);
     const pdfBuffer = await generatePDF(htmlContent);
+    console.log({ htmlContent });
     return new Response(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",

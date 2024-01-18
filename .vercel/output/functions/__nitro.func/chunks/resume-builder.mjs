@@ -1,9 +1,9 @@
-import { u as useStorage, d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
+import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
 import puppeteer from 'puppeteer';
+import * as fs from 'fs';
 import Handlebars from 'handlebars';
 import 'node:http';
 import 'node:https';
-import 'fs';
 import 'path';
 
 async function generatePDF(htmlContent) {
@@ -20,8 +20,8 @@ async function generatePDF(htmlContent) {
 }
 
 async function populateTemplate(data, type) {
-  const templatePath = await useStorage().getItem(`templates/${type}.hbs`);
-  const template = Handlebars.compile(templatePath);
+  const templateSource = fs.readFileSync(process.cwd() + `/templates/${type}.hbs`, "utf8");
+  const template = Handlebars.compile(templateSource);
   return template(data);
 }
 

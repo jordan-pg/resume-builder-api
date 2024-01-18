@@ -5229,5 +5229,5 @@ const vercel = (function(req, res) {
   return handler(req, res);
 });
 
-export { assertMethod as a, createError$1 as c, defineEventHandler as d, handleCors as h, readBody as r, useStorage as u, vercel as v };
+export { assertMethod as a, createError$1 as c, defineEventHandler as d, handleCors as h, readBody as r, vercel as v };
 //# sourceMappingURL=vercel.mjs.map
