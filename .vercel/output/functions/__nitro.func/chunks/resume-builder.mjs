@@ -1,19 +1,21 @@
 import { d as defineEventHandler, h as handleCors, a as assertMethod, r as readBody, c as createError } from './nitro/vercel.mjs';
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
+import * as fs from 'fs';
+import Handlebars from 'handlebars';
 import 'node:http';
 import 'node:https';
-import 'fs';
 import 'path';
 
-const chromium = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer-core");
 async function generatePDF(htmlContent) {
   let browser = null;
   try {
     browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true
     });
     const page = await browser.newPage();
     await page.setContent(htmlContent, { waitUntil: "networkidle0" });
@@ -23,14 +25,12 @@ async function generatePDF(htmlContent) {
     console.error(error);
     throw error;
   } finally {
-    if (browser !== null) {
+    if (browser) {
       await browser.close();
     }
   }
 }
 
-const fs = require("fs");
-const Handlebars = require("handlebars");
 async function populateTemplate(data, type) {
   const templateSource = fs.readFileSync(process.cwd() + `/templates/${type}.hbs`, "utf8");
   const template = Handlebars.compile(templateSource);

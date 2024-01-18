@@ -1,6 +1,6 @@
 import { Resume } from '../types/resumeTypes';
-const fs = require("fs");
-const Handlebars = require("handlebars");
+import * as fs from 'fs';
+import Handlebars from 'handlebars';
 
 export async function populateTemplate(data: Resume, type: string): Promise<string> {
     const templateSource = fs.readFileSync(process.cwd() +`/templates/${type}.hbs`, 'utf8');
